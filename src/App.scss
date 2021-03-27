@@ -1,77 +1,122 @@
-@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@200&display=swap');
-$title-font: Raleway, sans-serif;
-$main-font: Raleway, sans-serif;
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@200&Inconsolata:wght@300&display=swap');
 
-$body-color: rgb(31, 169, 63);
-$text-color: rgb(230, 230, 230);
+$main-font: Raleway, sans-serif;
+$numbers-font: Inconsolata, monospace;
+
+$body-color: rgb(246, 224, 224);
+$text-color: rgb(70, 70, 70);
 $border-color: rgba(4, 53, 16, 0.8);
 
-body {
-  box-sizing: border-box;
-  background-color: $body-color;
-  font-family: $main-font;
+html {
+  padding: env(safe-area-inset);
 }
+
+body {
+  background-color: $body-color;
+  box-sizing: border-box;
+  color: $text-color;
+  font-family: $main-font;
+  width: 100%;
+}
+
 button {
   background-color: inherit;
-  opacity: 0.7;
   border: none;
+  color: $text-color;
   font-size: 1.5em;
+  opacity: 0.7;
   &:focus {
-    outline: none;
     opacity: 0.3;
+    outline: none;
   }
 }
+
 #app {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
+  align-items: center;
+  background: linear-gradient(90deg, rgba(159, 213, 101, 0.6) 0%, rgba(213, 101, 103, 0.6) 45%);
+  border-radius: 1rem;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  h1 {
-    font-family: $title-font;
-    font-size: 2.5em;
-    text-align: center;
-  }
+  left: 50%;
+  padding: 0.5rem;
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+
   #length-control {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    div {
-      width: 8rem;
-      padding: 0.2em;
-      line-height: 1em;
-      font-family: $title-font;
+    div {      
       font-size: 1.2em;
+      line-height: 1em;
+      margin: 0em;
+      padding: 0;
       text-align: center;
-      border: 0.1em solid $border-color;
-      border-radius: 1em;
-      margin: 0.2em;
-      span {
-        padding: 0.3em;
+      width: 8rem;
+      input {
+        background-color: inherit;
+        border: none;
+        display: inline-block;
+        font-family: $numbers-font;
         font-size: 1.3em;
-        font-weight: bold;
+        max-width: 2rem;
+        padding: 0.3em;
+        text-align: center;
       }
     }
   }
-  #timer {
-    background-color: rgb(242, 20, 23);
-    display: inline-block;
-    width: 15rem;
-    height: 13rem;
-    margin: 1em 0;
-    border-radius: 7rem;
-    text-align: center;    
-    color: $text-color;
-    #timer-label {
-      font-family: $title-font;
-      font-size: 2.5em;
-    }
-    #time-left {
-      margin-top: 0;
-      font-size: 4em;
-      line-height: 1em;
-    }
+
+  #timer-controls-wrapper {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    #timer {
+      align-items: center;
+      display: flex;
+      height: 16rem;      
+      justify-content: center;
+      margin: 1em 0;
+      position: relative;
+      text-align: center;
+      width: 16rem;
+      #timer-svg {
+        transform: scaleX(-1);
+        #timer-circle {
+          fill: none;
+          stroke: none;
+          #timer-circle-outter,
+          #timer-circle-inner {
+            stroke: rgba(255, 255, 255, 0.5);
+            stroke-width: 0.3rem;
+          }
+          #timer-circle-inner-rem,
+          #timer-circle-outer-rem {
+            stroke-linecap: round;
+            stroke-width: 0.3rem;
+            transform: rotate(90deg);
+            transform-origin: center; 
+            transition: 1s linear all;
+          }
+        } //#timer-circle
+      } //#timer-svg
+      #timer-text {      
+          position: absolute;
+        #timer-label {
+          font-size: 1.5em;
+        }
+        #time-left {
+          font-family: $numbers-font;
+          font-size: 3em;
+          margin-top: 0;
+        }
+      }
+    } //#timer
+  } //#timer-controls-wrapper
+} //#app
+@media screen and (min-width: 560px) {
+  #app {
+    flex-direction: row;
   }
 }

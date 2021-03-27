@@ -3,14 +3,19 @@ import { faArrowDown, faArrowUp } from "@fortawesome/free-solid-svg-icons"
 
 const LengthControl = (props) => (
   <div>
-    <h3 id={props.name+'-label'}>{props.title}</h3>
+    <p id={props.name+'-label'}>{props.title}</p>
     <Control 
       id={props.name+'-decrement'}
       handleClick={props.handleClick}
       icon={faArrowDown}
       value='dec'
     />
-    <span id={props.name+'-length'}>{props.value}</span>
+    <input 
+      type='text' 
+      id={props.name+'-length'} 
+      value={props.value} 
+      onChange={props.handleChange} 
+    />
     <Control 
       id={props.name+'-increment'}
       handleClick={props.handleClick}
