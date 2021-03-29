@@ -136,12 +136,13 @@ const App = (props) => {
     const change = (e) => {
         const input = e.currentTarget;
         const val = input.value;
+        const numVal = Number(val);
 
         if (!running) {
-            if ((Number(val) > 0 && Number(val) <= 60) || val === '') {
-                if (input.id === 'session-length') setSessionLength(input.value);
-                if (input.id === 'short-length') setShort(input.value);
-                if (input.id === 'fourth-length') setFourth(input.value);
+            if ((numVal > 0 && numVal <= 60) || val === '') {
+                if (input.id === 'session-length') setSessionLength(numVal);
+                if (input.id === 'short-length') setShort(numVal);
+                if (input.id === 'fourth-length') setFourth(numVal);
             }
         }
     }
