@@ -11,3 +11,7 @@ See live on [Pomodoro Clock](https://danijels.github.io/pomodoro-clock)
 - A short alarm sound marks the end of each interval.
 - There is an option to reset and start an interval from beginning.
 
+## Version 0.1.1
+
+- The timer keeps track of how many sessions (or 'pomodoros') it has been until the fourth.
+- Added the option to set the fourth break longer, as suggested in the [original technique](https://en.wikipedia.org/wiki/Pomodoro_Technique).

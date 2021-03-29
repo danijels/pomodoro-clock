@@ -4,7 +4,7 @@ $main-font: Raleway, sans-serif;
 $numbers-font: Inconsolata, monospace;
 
 $body-color: rgb(246, 224, 224);
-$text-color: rgb(70, 70, 70);
+$text-color: rgb(0, 0, 0);
 $border-color: rgba(4, 53, 16, 0.8);
 
 html {
@@ -12,10 +12,15 @@ html {
 }
 
 body {
+  align-items: center;
   background-color: $body-color;
   box-sizing: border-box;
   color: $text-color;
+  display: flex;
   font-family: $main-font;
+  font-weight: bold;
+  height: 100vh;
+  justify-content: center;
   width: 100%;
 }
 
@@ -37,33 +42,34 @@ button {
   border-radius: 1rem;
   display: flex;
   flex-direction: column;
-  left: 50%;
-  padding: 0.5rem;
-  position: absolute;
-  top: 50%;
-  transform: translate(-50%, -50%);
-
+  margin: 0.2rem 0;
+  padding-bottom: 0.5rem;  
   #length-control {
+    align-items: center;
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    div {      
-      font-size: 1.2em;
-      line-height: 1em;
+    flex-direction: column;
+    justify-content: center;
+    #session-wrapper,
+    #short-wrapper,
+    #fourth-wrapper {
+      display: inline-block;
       margin: 0em;
       padding: 0;
       text-align: center;
-      width: 8rem;
+      width: 6.5rem;
       input {
         background-color: inherit;
         border: none;
         display: inline-block;
         font-family: $numbers-font;
         font-size: 1.3em;
-        max-width: 2rem;
-        padding: 0.3em;
+        max-width: 1.4rem;
+        padding: 0;
         text-align: center;
       }
+    }
+    p {
+      text-align: center;
     }
   }
 
@@ -75,7 +81,7 @@ button {
     #timer {
       align-items: center;
       display: flex;
-      height: 16rem;      
+      height: 15rem;      
       justify-content: center;
       margin: 1em 0;
       position: relative;

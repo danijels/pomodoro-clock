@@ -2,7 +2,7 @@ import Control from "./control.js"
 import { faArrowDown, faArrowUp } from "@fortawesome/free-solid-svg-icons"
 
 const LengthControl = (props) => (
-  <div>
+  <div id={props.name+'-wrapper'}>
     <p id={props.name+'-label'}>{props.title}</p>
     <Control 
       id={props.name+'-decrement'}

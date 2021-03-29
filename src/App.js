@@ -10,14 +10,17 @@ const App = (props) => {
     const intervalRef = useRef();
     const audioRef = useRef();
 
-    const [sessionLength, setSessionLength] = useState(25);  
-    const [breakLength, setBreakLength] = useState(5);
+    const [sessionLength, setSessionLength] = useState(25); 
+    const [short, setShort] = useState(5);
+    const [fourth, setFourth] = useState(15);     
+    const [breakLength, setBreakLength] = useState(short);
     const [displayTime, setDisplayTime] = useState(sessionLength+':00');  
     const [current, setCurrent] = useState('Session');    
     const [running, setRunning] = useState(false);    
     const [newPeriod, setNewPeriod] = useState('');
     //283 is default because it matches the bigger circle
     const [remaining, setRemaining] = useState('283'); 
+    const [pomodoros, setPomodoros] = useState(0);
     //This is the function that runs in a loop
     //Takes the difference between the starting time and the moment at which runs 
     //Subtracts that from the initial length
@@ -56,11 +59,19 @@ const App = (props) => {
             const length = breakLength < 10 ? '0'+breakLength : breakLength;
             setDisplayTime(length+':00');
             setRunning(true);
+            setPomodoros(p => p + 1);
         } else if (newPeriod === 'session') {
             setCurrent('Session');
             const length = sessionLength < 10 ? '0'+sessionLength : sessionLength;
             setDisplayTime(length+':00');
             setRunning(true);
+            //The tally mark gets added only when a session ENDS so we set the longer break
+            //while in the 4th pomodoro i.e. when there are 3 tally marks
+            if (pomodoros === 3) setBreakLength(fourth);
+            if (pomodoros === 4) {
+                setBreakLength(short);
+                setPomodoros(0);
+            }
         }
     }, [newPeriod]);
     //Responds to changes in sessionLength and adjusts the value displayed in the timer accordingly
@@ -79,6 +90,10 @@ const App = (props) => {
         const clear = (int) => { clearInterval(int) };
         if (!running) clear(intervalRef.current);       
     }, [running]);
+
+    useEffect(() => {
+        setBreakLength(short);
+    }, [short]);
     //Handles incrementing and decrementing of the sessionLength
     //If the timer is running the buttons do not respond
     const handleSessionClick = (e) => {
@@ -95,8 +110,10 @@ const App = (props) => {
     const handleBreakClick = (e) => {
         const id = e.currentTarget.id;
         if (!running) {
-            if (breakLength < 60 && id === 'break-increment') setBreakLength(breakLength => breakLength + 1);
-            if (breakLength > 1 && id === 'break-decrement') setBreakLength(breakLength => breakLength - 1);
+            if (short < 60 && id === 'short-increment') setShort(breakLength => breakLength + 1);
+            if (short > 1 && id === 'short-decrement') setShort(breakLength => breakLength - 1);
+            if (fourth < 60 && id === 'fourth-increment') setFourth(breakLength => breakLength + 1);
+            if (fourth > 1 && id === 'fourth-decrement') setFourth(breakLength => breakLength - 1);
         }
     }
     //Handles a click on the start_stop button 
@@ -123,7 +140,8 @@ const App = (props) => {
         if (!running) {
             if ((Number(val) > 0 && Number(val) <= 60) || val === '') {
                 if (input.id === 'session-length') setSessionLength(input.value);
-                if (input.id === 'break-length') setBreakLength(input.value);
+                if (input.id === 'short-length') setShort(input.value);
+                if (input.id === 'fourth-length') setFourth(input.value);
             }
         }
     }
@@ -140,20 +158,33 @@ const App = (props) => {
     return (
         <div id='app'>    
             <div id='length-control'>
-                <LengthControl 
-                  name='session'
-                  title='Session length'
-                  handleClick={handleSessionClick}
-                  value={sessionLength}
-                  handleChange={change}
-                />
-                <LengthControl 
-                  name='break'
-                  title='Break length'
-                  handleClick={handleBreakClick}
-                  value={breakLength}
-                  handleChange={change}
-                />
+                    <LengthControl 
+                      name='session'
+                      title='Session length'
+                      handleClick={handleSessionClick}
+                      value={sessionLength}
+                      handleChange={change}
+                    />
+                    <div>
+                        <LengthControl 
+                          name='short'
+                          title='Short break length'
+                          handleClick={handleBreakClick}
+                          value={short}
+                          handleChange={change}
+                        />
+                        <LengthControl 
+                          name='fourth'
+                          title='Fourth break length'
+                          handleClick={handleBreakClick}
+                          value={fourth}
+                          handleChange={change}
+                        />
+                    </div>
+                
+                <p id='counter'>
+                    {`Pomodoros done: ${'|'.repeat(pomodoros)}`}
+                </p>
             </div>
             <div id='timer-controls-wrapper'>
                 <Timer 
