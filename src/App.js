@@ -159,30 +159,27 @@ const App = (props) => {
     return (
         <div id='app'>    
             <div id='length-control'>
-                    <LengthControl 
-                      name='session'
-                      title='Session length'
-                      handleClick={handleSessionClick}
-                      value={sessionLength}
-                      handleChange={change}
-                    />
-                    <div>
-                        <LengthControl 
-                          name='short'
-                          title='Short break length'
-                          handleClick={handleBreakClick}
-                          value={short}
-                          handleChange={change}
-                        />
-                        <LengthControl 
-                          name='fourth'
-                          title='Fourth break length'
-                          handleClick={handleBreakClick}
-                          value={fourth}
-                          handleChange={change}
-                        />
-                    </div>
-                
+                <LengthControl 
+                  name='session'
+                  title='Session'
+                  handleClick={handleSessionClick}
+                  value={sessionLength}
+                  handleChange={change}
+                />
+                <LengthControl 
+                  name='short'
+                  title='Short break'
+                  handleClick={handleBreakClick}
+                  value={short}
+                  handleChange={change}
+                />
+                <LengthControl 
+                  name='fourth'
+                  title='Fourth break'
+                  handleClick={handleBreakClick}
+                  value={fourth}
+                  handleChange={change}
+                />  
                 <p id='counter'>
                     {`Pomodoros done: ${'|'.repeat(pomodoros)}`}
                 </p>

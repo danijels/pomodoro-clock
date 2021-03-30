@@ -38,7 +38,6 @@ button {
 
 #app {
   align-items: center;
-  background: linear-gradient(90deg, rgba(159, 213, 101, 0.6) 0%, rgba(213, 101, 103, 0.6) 45%);
   border-radius: 1rem;
   display: flex;
   flex-direction: column;
@@ -56,14 +55,16 @@ button {
       margin: 0em;
       padding: 0;
       text-align: center;
-      width: 6.5rem;
+      p {
+        margin: 0.1rem;
+      }
       input {
         background-color: inherit;
         border: none;
         display: inline-block;
         font-family: $numbers-font;
         font-size: 1.3em;
-        max-width: 1.4rem;
+        max-width: 7rem;
         padding: 0;
         text-align: center;
       }
