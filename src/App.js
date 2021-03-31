@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from 'react'
 import { faPause, faPlay, faSync } from '@fortawesome/free-solid-svg-icons'
+import useInterval from './hooks/use-interval'
 import './App.scss'
 
 import Control from './components/control.js'
@@ -7,7 +8,7 @@ import Timer from './components/timer.js'
 import LengthControl from './components/lengthControl.js'
 
 const App = (props) => {
-    const intervalRef = useRef();
+    //const intervalRef = useRef();
     const audioRef = useRef();
 
     const [sessionLength, setSessionLength] = useState(25); 
@@ -21,6 +22,8 @@ const App = (props) => {
     //283 is default because it matches the bigger circle
     const [remaining, setRemaining] = useState('283'); 
     const [pomodoros, setPomodoros] = useState(0);
+    const [startTime, setStartTime] = useState(null);
+    const [countFrom, setCountFrom] = useState(null);
     //This is the function that runs in a loop
     //Takes the difference between the starting time and the moment at which runs 
     //Subtracts that from the initial length
@@ -73,6 +76,7 @@ const App = (props) => {
                 setPomodoros(0);
             }
         }
+    //eslint-disable-next-line
     }, [newPeriod]);
     //Responds to changes in sessionLength and adjusts the value displayed in the timer accordingly
     useEffect(() => { 
@@ -81,15 +85,15 @@ const App = (props) => {
     }, [sessionLength]);
     //Responds to each change of running value
     //Sets up the variables that countdown depends on - the starting time and what value it counts down from
-    //Then it conditionally sets up a start of an interval and its clearing
-    useEffect(() => {   
-        const startDate = Date.now();
-        const countFrom = Number(displayTime.split(':')[0] * 60) + Number(displayTime.split(':')[1]);
-
-        if (running) intervalRef.current = setInterval(() => countdown(startDate, countFrom), 1000);    
-        const clear = (int) => { clearInterval(int) };
-        if (!running) clear(intervalRef.current);       
+    useEffect(() => {
+        setStartTime(Date.now());
+        setCountFrom(Number(displayTime.split(':')[0] * 60) + Number(displayTime.split(':')[1]));
+    //eslint-disable-next-line
     }, [running]);
+
+    useInterval(() => { 
+        countdown(startTime, countFrom); 
+    }, running ? 1000 : null);       
 
     useEffect(() => {
         setBreakLength(short);
