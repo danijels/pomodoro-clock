@@ -80,10 +80,8 @@ button {
     flex-direction: column;
     justify-content: center;
     #timer {
-      align-items: center;
-      display: flex;
+      display: block;
       height: 15rem;      
-      justify-content: center;
       margin: 1em 0;
       position: relative;
       text-align: center;
@@ -108,8 +106,11 @@ button {
           }
         } //#timer-circle
       } //#timer-svg
-      #timer-text {      
+      #timer-text {     
+          left: 50%;
           position: absolute;
+          top: 50%;
+          transform: translate(-50%, -50%);
         #timer-label {
           font-size: 1.5em;
         }

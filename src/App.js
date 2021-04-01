@@ -32,7 +32,7 @@ const App = (props) => {
         const difference = Math.floor((Date.now() - startTime) / 1000);
         const left = countFrom - difference;
         //this part plays a sound when the timer reaches 00:00
-        if (left === 0) audioRef.current.play();
+        if (left === 0) audioRef.current.play().catch(err => null);
         if (left < 0) {
             //Setting running to false triggers the effect which handles the interval setup 
             //or more precisely in this case - the cleanup
@@ -131,6 +131,8 @@ const App = (props) => {
     const reset = () => {
         setCurrent('Session');
         setSessionLength(25);
+        setShort(5);
+        setFourth(15);
         setBreakLength(5);
         setRunning(false);
         setNewPeriod('');
